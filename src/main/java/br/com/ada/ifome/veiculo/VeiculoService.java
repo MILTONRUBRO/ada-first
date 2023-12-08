@@ -25,7 +25,7 @@ public class VeiculoService {
 	}
 
 	public static void validarDataModelo(Veiculo veiculo) throws VeiculoDataModeloInvalidaException {
-		int anoModelo = Integer.parseInt(veiculo.getDataModelo().substring(6, 8));
+		int anoModelo = Integer.parseInt(veiculo.getDataModelo().substring(4, 8));
 		if (anoModelo < 2010) {
 			throw new VeiculoDataModeloInvalidaException("Ano do modelo deve ser igual ou superior a 2010");
 		}
