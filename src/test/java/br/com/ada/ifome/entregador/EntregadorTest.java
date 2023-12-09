@@ -12,9 +12,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import br.com.ada.ifome.conta.Conta;
+import br.com.ada.ifome.conta.TipoConta;
 import br.com.ada.ifome.usuario.exceptions.CnhInvalidoException;
 import br.com.ada.ifome.usuario.exceptions.CpfInvalidoException;
 import br.com.ada.ifome.usuario.exceptions.RgInvalidoException;
+import br.com.ada.ifome.usuario.exceptions.ValidacaoException;
 
 @SpringBootTest
 public class EntregadorTest {
@@ -59,11 +62,19 @@ public class EntregadorTest {
 
 
     @Test
-    public void entregadorComDocumentosValidos() {
+    public void entregadorComDocumentosValidos() throws ValidacaoException {
+    	var conta = new Conta();
+    	conta.setAgencia("1234");
+    	conta.setNumero("6453726485");
+    	conta.setInstituicaoBancaria("Santander");
+    	conta.setTipoConta(TipoConta.CORRENTE);
+    	
         var entregador = new Entregador();
         entregador.setCpf("04455566633");
         entregador.setCnh("43274866600");
         entregador.setRg("1236547");
+        
+        entregador.setConta(conta);
         
         when(entregadorRepository.save(any())).thenReturn(entregador);
         var usuarioSalvo = entregadorService.salvar(entregador);
