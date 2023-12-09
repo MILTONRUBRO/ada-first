@@ -24,7 +24,7 @@ public class EntregadorIntegracaoTest {
     private MockMvc mockMvc;
 
     @Test
-    public void salvarEntregadorExistente() throws Exception {
+    public void salvarDeletarEntregador() throws Exception {
     	Entregador entregador = criarEntregador();
         var entregadorJson = converterEntregadorParaJson(entregador);
 
@@ -35,7 +35,58 @@ public class EntregadorIntegracaoTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().is2xxSuccessful());
+        
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .delete("/entregadores/1")
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is2xxSuccessful());
 
+    }
+    
+    @Test
+    public void naoSalvarEntregadorComCPFInvalido() throws Exception {
+    	Entregador entregador = criarEntregador();
+    	entregador.setCpf("765");
+        var entregadorJson = converterEntregadorParaJson(entregador);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+		                .post("/entregadores")
+		                .content(entregadorJson)
+		                .contentType(MediaType.APPLICATION_JSON)
+		                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is4xxClientError());
+    }
+    
+    @Test
+    public void naoSalvarEntregadorComRGInvalido() throws Exception {
+    	Entregador entregador = criarEntregador();
+    	entregador.setRg("333");
+        var entregadorJson = converterEntregadorParaJson(entregador);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+		                .post("/entregadores")
+		                .content(entregadorJson)
+		                .contentType(MediaType.APPLICATION_JSON)
+		                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is4xxClientError());
+    }
+    
+    @Test
+    public void naoSalvarEntregadorComCNHInvalido() throws Exception {
+    	Entregador entregador = criarEntregador();
+    	entregador.setCnh("555");
+        var entregadorJson = converterEntregadorParaJson(entregador);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders
+		                .post("/entregadores")
+		                .content(entregadorJson)
+		                .contentType(MediaType.APPLICATION_JSON)
+		                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is4xxClientError());
     }
 
 	public static String converterEntregadorParaJson(final Entregador obj) {
