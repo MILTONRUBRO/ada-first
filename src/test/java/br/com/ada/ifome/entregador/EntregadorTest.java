@@ -28,7 +28,6 @@ public class EntregadorTest {
 	@Mock
 	private EntregadorRepository  entregadorRepository;
 	
-	
     @Test
     public void entregadorCpfInvalidoComLetra() {
         var entregador = new Entregador();
