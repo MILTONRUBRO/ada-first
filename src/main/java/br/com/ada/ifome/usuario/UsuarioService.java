@@ -1,10 +1,10 @@
 package br.com.ada.ifome.usuario;
 
+import org.springframework.stereotype.Service;
+
 import br.com.ada.ifome.usuario.exceptions.CpfInvalidoException;
 import br.com.ada.ifome.usuario.exceptions.UsuarioInvalidoException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
