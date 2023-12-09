@@ -1,5 +1,7 @@
 package br.com.ada.ifome.entregador;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.ada.ifome.usuario.exceptions.CnhInvalidoException;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EntregadorService {
 
 	private final EntregadorRepository entregadorRepository;
